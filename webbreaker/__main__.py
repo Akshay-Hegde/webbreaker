@@ -121,7 +121,7 @@ def webinspect():
 @click.option('--settings',
               type=str,
               default='Default',
-              required=True,
+              required=False,
               help="Specify setting file")
 @click.option('--size',
               type=click.Choice(['small', 'medium', 'large']),
@@ -140,6 +140,10 @@ def webinspect():
 @click.option('--workflow_macros',
               multiple=True,
               help="Assign workflow macro(s)")
+# Added since 2.2.1
+@click.option('--stop',
+              type=str,
+              help="Stop a scan with a Scan ID, must include the scan ID GUID!")
 def webinspect_scan(**kwargs):
     # handle deprecated click option warnings
     if kwargs['upload_policy']:
@@ -155,6 +159,7 @@ def webinspect_scan(**kwargs):
                          "valid use for this please make a github issue")
 
     WebInspectScan(kwargs.copy())
+
 
 
 @webinspect.command(name='list',
@@ -257,7 +262,6 @@ def webinspect_proxy(download, list, port, proxy_name, setting, server, start, s
               help="Optional URL of specific WebInspect server(s)")
 def webinspect_wiswag(url, wiswag_name, username, password, server):
     WebInspectWiswag(url, wiswag_name, username, password, server)
-
 
 @cli.group(short_help="Interaction with Fortify API",
            help=WebBreakerHelper().fortify_desc(),

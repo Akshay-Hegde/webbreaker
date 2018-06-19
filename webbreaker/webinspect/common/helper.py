@@ -17,7 +17,6 @@ from webbreaker.webinspect.common.loghelper import WebInspectLogHelper
 import webbreaker.webinspect.webinspect_json as webinspectjson
 
 
-
 logexceptionhelper = LogExceptionHelper()
 webinspect_logexceptionhelp = WebInspectLogHelper()
 

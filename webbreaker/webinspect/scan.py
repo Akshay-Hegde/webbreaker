@@ -66,6 +66,11 @@ class WebInspectScan:
         if 'git' not in cli_overrides:  # it shouldn't be in the overrides, but here for potential future support of cli passed git paths
             cli_overrides['git'] = Config().git
 
+        # added for deletion of running scans stop_scan
+        if 'stop' in cli_overrides:
+            #cli_overrides['stop'] = ScanOverrides(cli_overrides)
+            self._stop_scan(self.scan_id)
+
         self._webinspect_git_clone(cli_overrides['settings'])
 
         self.scan_overrides = ScanOverrides(cli_overrides)
@@ -344,6 +349,8 @@ class ScanOverrides:
             self.scan_size = override_dict['size']
             self.fortify_user = override_dict['fortify_user']
             self.targets = None  # to be set in a parse function
+            # Added __since__ 2.2.1
+            self.stop_scan = override_dict['stop']
 
             # need to convert tuple to list
             self.start_urls = list(override_dict['start_urls'])
@@ -371,6 +378,8 @@ class ScanOverrides:
             Logger.app.debug("scan_policy: {}".format(self.scan_policy))
             Logger.app.debug("scan_start: {}".format(self.scan_start))
             Logger.app.debug("start_urls: {}".format(self.start_urls))
+            # Added __since__ 2.2.1
+            Logger.app.debug("stop: {}".format(self.stop_scan))
             Logger.app.debug("fortify_user: {}".format(self.fortify_user))
         except (EnvironmentError, TypeError) as e:
             webinspectloghelper.log_error_scan_overrides_parsing_error(e)
