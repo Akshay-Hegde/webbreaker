@@ -204,7 +204,7 @@ class WebInspectScan:
         while not scan_complete:
             current_status = self.webinspect_api.get_scan_status(self.scan_id)
 
-            # Happy path - we completed our scan
+                        # Happy path - we completed our scan
             if current_status.lower() == 'complete':
                 # Now let's download or export the scan artifact in two formats
                 self.webinspect_api.export_scan_results(self.scan_id, 'fpr')
@@ -223,10 +223,12 @@ class WebInspectScan:
             elif current_status.lower() != "running":
                 webinspectloghelper.log_error_scan_in_weird_state(scan_name=self.scan_id, state=current_status)
                 sys.exit(ExitStatus.failure)
-            #time.sleep(delay)
-            else:
+
+            # WebInspectApi will return None if there is no Status
+            elif current_status.lower() == 'none':
                 webinspectloghelper.log_error_scan_in_weird_state(scan_name=self.scan_id, state=current_status)
                 sys.exit(ExitStatus.failure)
+            #time.sleep(delay)
 
     def _stop_scan(self, scan_id):
         self.webinspect_api.stop_scan(scan_id)
