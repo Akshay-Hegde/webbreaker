@@ -204,31 +204,36 @@ class WebInspectScan:
         while not scan_complete:
             current_status = self.webinspect_api.get_scan_status(self.scan_id)
 
-                        # Happy path - we completed our scan
-            if current_status.lower() == 'complete':
-                # Now let's download or export the scan artifact in two formats
-                self.webinspect_api.export_scan_results(self.scan_id, 'fpr')
-                self.webinspect_api.export_scan_results(self.scan_id, 'xml')
-                return
-                # TODO add json export
-
-            # The scan can sometimes go from running to not running and that is not what we want.
-            elif current_status.lower() == 'notrunning':
-                webinspectloghelper.log_error_not_running_scan()
-                self._stop_scan(self.scan_id)
+            try:
+                # Happy path - we completed our scan
+                if current_status.lower() == 'complete':
+                    # Now let's download or export the scan artifact in two formats
+                    self.webinspect_api.export_scan_results(self.scan_id, 'fpr')
+                    self.webinspect_api.export_scan_results(self.scan_id, 'xml')
+                    return
+                    # TODO add json export
+    
+                # The scan can sometimes go from running to not running and that is not what we want.
+                elif current_status.lower() == 'notrunning':
+                    webinspectloghelper.log_error_not_running_scan()
+                    self._stop_scan(self.scan_id)
+                    sys.exit(ExitStatus.failure)
+    
+                # This is interesting behavior and we want to log it.
+                # It should never be in a state besides Running, NotRunning and Complete.
+                elif current_status.lower() != "running":
+                    webinspectloghelper.log_error_scan_in_weird_state(scan_name=self.scan_id, state=current_status)
+                    sys.exit(ExitStatus.failure)
+    
+                # WebInspectApi will return None if there is no Status
+                elif current_status.lower() == 'none':
+                    webinspectloghelper.log_error_scan_in_weird_state(scan_name=self.scan_id, state=current_status)
+                    sys.exit(ExitStatus.failure)
+                time.sleep(delay)
+                
+            except AttributeError as e:
+                webinspectloghelper.log_error_unrecoverable_scan(current_status, e)
                 sys.exit(ExitStatus.failure)
-
-            # This is interesting behavior and we want to log it.
-            # It should never be in a state besides Running, NotRunning and Complete.
-            elif current_status.lower() != "running":
-                webinspectloghelper.log_error_scan_in_weird_state(scan_name=self.scan_id, state=current_status)
-                sys.exit(ExitStatus.failure)
-
-            # WebInspectApi will return None if there is no Status
-            elif current_status.lower() == 'none':
-                webinspectloghelper.log_error_scan_in_weird_state(scan_name=self.scan_id, state=current_status)
-                sys.exit(ExitStatus.failure)
-            #time.sleep(delay)
 
     def _stop_scan(self, scan_id):
         self.webinspect_api.stop_scan(scan_id)
