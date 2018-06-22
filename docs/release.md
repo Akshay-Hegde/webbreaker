@@ -1,3 +1,9 @@
+# Release 2.2.0
+
+| Category | Feature |
+| -------- | ------- |
+| Runtime Support | WebInspect XML scan file parsing, to a structured JSON file providing a summary of the Vulnerabilities | 
+
 # Release 2.1.23
 
 | Category | Feature |
@@ -8,7 +14,7 @@
 | Runtime Support | Added Circuit Breaker logic from the `pybreaker` module for greater API reliability | 
 | Runtime Support | Refactored load-balancing options extending logical lanes of 2 or greater WebInspect scan servers |
 | Runtime Support | Configurable SSL validation on `verify_ssl` with WebInspect, Fortify SSC, and ThreadFix |
-| Runtime Support | Added multi-threading support for WebInspect functionality |
+| Runtime Support | Multi-threading for WebInspect JITScheduler, improving load balancing performance |
 | Product Support | Increase test coverage to greater than 50% |
 | Administration | Re-write User Guide and CLI help menu content. 
 
