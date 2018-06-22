@@ -449,7 +449,7 @@ Below are common command-line usage of webbreaker, command structure includes th
 
 ##### JSON Scan File `json_scan_file`
 
-Below is an example of the structured JSON WebInspect file, illustrating a single vulnerability.
+The two proprietary formats are `.fpr` and `.xml` file types.  WebBreaker parses the `.xml` file into a limited `.json` format.  Below is an example of the `.json` structured WebInspect file `webinspect-3CY6F.json`, illustrating a single vulnerability.
 
 ``` js
 {
@@ -464,7 +464,8 @@ Below is an example of the structured JSON WebInspect file, illustrating a singl
       {
         "id": "06103bc8-612f-4cda-8182-578ebf87cd17" 
       },
-      "cwe": [
+      "cwe": 
+      [
         "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
         "CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS)",
         "CWE-116: Improper Encoding or Escaping of Output",
