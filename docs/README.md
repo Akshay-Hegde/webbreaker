@@ -8,11 +8,15 @@
 [User Guide](#user-guide)
 
 - [Installation `installation`](#installation)
-- [Supported Features `supported_features`](#supported-features)
+- [Features `features`](#features)
 - [Logging `logging`](#logging)
 - [Docker `docker`](#docker)
 - [Testing `testing`](#testing)
 - [Notifications `notifications`](#notifications)
+
+[Results](#results)
+- [Summary of Scan Results `summary_of_scan_results`](#summary-of-scan-results)
+- [JSON Scan File `json_scan_file`](#json-scan-file)
 
 [Configuration](#configuration)
 - [WebBreaker `webbreaker_config`](#webbreaker-config)
@@ -31,16 +35,29 @@
 - [ThreadFix Upload `threadfix_upload`](#threadfix-upload)
 - [WebBreaker Administrative `webbreaker_administrative`](#webbreaker-administrative)
 
-[Results](#results)
-- [Summary of Scan Results `summary_of_scan_results`](#summary-of-scan-results)
-- [JSON Scan File `json_scan_file`](#json-scan-file)
-
 ## Introduction `introduction`
 
 ### Description `description`
 Build non-functional security testing, into your software development and release cycles! WebBreaker provides the capabilities to automate and orchestrate Dynamic Application Security Testing (DAST) from a single client.
 
 ## User Guide `user-guide`
+
+### Features: `features`
+
+* _Supported releases for [OSX, Windows, and Linux](https://github.com/target/webbreaker/releases/latest)_
+* _Docker container build support_
+* _Jenkins global environmental variable inheritance with scan options._
+* _WebInspect REST API support for v9.30 and above._
+* _XML and FPR WebInspect formats to Fortify Software Security Center (SSC), ThreadFix or other compatible vulnerability management web applications for vulnerability analysis/triage._
+* _Ability to automatically upload scan results to Fortify SSC, ThreadFix or other third-party vulnerability management software._
+* _
+* _Centrally administer all configurations required to launch WebInspect scans from a [GIT](https://github.com/webbreaker/webinspect) repository structure._
+* _Configurable ~/.webbreaker/config.ini property file to support for Fortify SSC, WebInspect, and ThreadFix._
+* _Enterprise scalability with load-balancing between two (2) or greater WebInspect servers._
+* _ChatOps extensibility and [email notifications](.webbreaker/config.ini) on scan start and completion._
+* _Local [logging](~/.webbreaker/log) of WebInspect scan state._
+* _Extensible or portable scan results provided in a JSON format, may be forwarded or ingested by other third-party products, such as Splunk, Grafana, etc._
+* _Fortify SSC, WebInspect, and ThreadFix authentication management._
 
 ### Installation: `installation`
 
@@ -67,20 +84,8 @@ Install WebBreaker with Windows pyinstaller.
 WebBreaker releases are packaged on github.com and can be installed locally.
 * ```pip install -e git+https://github.com/target/webbreaker.git#egg=webbreaker```
 
-### Supported Features: `supported_features`
-
-* _Jenkins global environmental variable inheritance with scan options._
-* _WebInspect REST API support for v9.30 and above._
-* _Export both XML and FPR WebInspect formats to Fortify Software Security Center (SSC) or other compatible vulnerability management web applications for vulnerability analysis/triage._
-* _Ability to automatically upload scan results to Fortify SSC or other third-party vulnerability management software._
-* _Centrally administer all configurations required to launch WebInspect scans from a [GIT](https://github.com/webbreaker/webinspect) repository._
-* _Configurable ~/.webbreaker/config.ini property file to support your Fortify, WebInspect, and ThreadFix orchestration._
-* _Enterprise scalability with configurable Just-In-Time (JIT) scheduling to distribute your WebInspect scans between two (2) or greater servers._
-* _ChatOps extensibility and [email notifications](.webbreaker/config.ini) on scan start and completion._
-* _Local [logging](.webbreaker/log) of WebInspect scan state._
-
 ### Logging `logging`
-WebBreaker local logs may be found under `~/.webbreaker/logs` and can be implemented with Elastic Stack for log aggregation. Recommended compenents include Filebeat agents installed on all WebInspect servers, forwarding to Logstash, and visualized in Kibana. General implementation details are [here](https://qbox.io/blog/welcome-to-the-elk-stack-elasticsearch-logstash-kibana/).  A recommended approach is to tag log events and queries with ```WebInspect``` and ```webbreaker```, but remember 
+WebBreaker local logs may be found under `~/.webbreaker/logs` and can be implemented with Elastic Stack for log aggregation.  Recommended compenents include Filebeat agents installed on all WebInspect servers, forwarding to Logstash, and visualized in Kibana. General implementation details are [here](https://qbox.io/blog/welcome-to-the-elk-stack-elasticsearch-logstash-kibana/).  A recommended approach is to tag log events and queries with ```WebInspect``` and ```webbreaker```, but remember 
 queries are case sensitive.
 
 ### Docker `docker`
@@ -135,6 +140,57 @@ settings are managed under your user's home directory within the `~.webbreaker/c
 
 If an error occurs on behalf of the notifiers at any point during the process of creating or sending 
 notifications, the event will be logged, without any interruption of WebBreaker execution or the WebInspect scan.
+
+## Results
+Scan results are provided in three (3) file formats and a scan summary printed to your screen.  The following sections illustrate both the scan result summary printed to your screen and the WebBreaker json file. 
+
+##### Summary of Scan Results `summary-of-scan-results`
+Upon scan completion the WebBreaker WebInspect scan file is read and a summary of the results are printed to the terminal.  Below is an example of the output from the vulnerability's `Payload URL`, `Severity`, `Vulnerability`, and `CWE`.
+
+
+```
+Webbreaker WebInpsect scan zero_bank results:
+
+
+Payload URL  Severity   Vulnerability  CWE
+------------ ---------- -------------- -----
+< insert results here />
+```
+
+##### JSON Scan File `json_scan_file`
+
+The two (2) WebInspect proprietary formats are `.fpr` and `.xml` file types.  WebBreaker parses or reads the `.xml` file creating a third and limited scan content into a `.json` format.  Below is an example of the `.json` structured WebInspect file `zero_bank.json`, illustrating a single vulnerability.
+
+``` js
+{
+      "scan_start_time": "2018-06-21 21:21:53",
+      "scan_end_time": "2018-06-21 21:24:01",
+      "scan_name": "zero_bank",
+      "scan_id": "db80cb63-efd1-473b-945b-618f45ef640c",
+      "findings":
+  {
+    {
+      "webinspect_id":
+      {
+        "id": "06103bc8-612f-4cda-8182-578ebf87cd17"
+      },
+      "cwe":
+      [
+        "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS)",
+        "CWE-116: Improper Encoding or Escaping of Output",
+        "CWE-352: Cross-Site Request Forgery (CSRF)",
+        "CWE-811: OWASP Top Ten 2010 Category A2 - Cross-Site Scripting (XSS)",
+        "Input Validation and Representation",
+        "Cross-Site Scripting: Reflected"
+      ],
+      "severity": "2",
+      "vulnerability_name": "Cross-Site Scripting: Reflected",
+      "payload_url": "http://zero.webappsecurity.com:80/forgotten-password-send.html"
+    }
+  }
+}
+```
 
 ## Configuration
 
@@ -448,53 +504,3 @@ Below are common command-line usage of webbreaker, command structure includes th
     # Clear cuurent stored Fortify credentials:
     webbreaker admin credentials --fortify --clear
 
-## Results
-Scan results are provided in three (3) file formats and a scan summary printed to your screen.  The following sections illustrate both the scan result summary printed to your screen and the WebBreaker json file. 
-
-##### Summary of Scan Results `summary-of-scan-results`
-Upon scan completion the WebBreaker WebInspect scan file is read and a summary of the results are printed to the terminal.  Below is an example of the output from the vulnerability's `Payload URL`, `Severity`, `Vulnerability`, and `CWE`.
-
-
-```
-Webbreaker WebInpsect scan zero_bank results:
-
-
-Payload URL  Severity   Vulnerability  CWE
------------- ---------- -------------- -----
-< insert results here />
-```
-
-##### JSON Scan File `json_scan_file`
-
-The two (2) WebInspect proprietary formats are `.fpr` and `.xml` file types.  WebBreaker parses or reads the `.xml` file creating a third and limited scan content into a `.json` format.  Below is an example of the `.json` structured WebInspect file `zero_bank.json`, illustrating a single vulnerability.
-
-``` js
-{
-      "scan_start_time": "2018-06-21 21:21:53",
-      "scan_end_time": "2018-06-21 21:24:01",
-      "scan_name": "zero_bank",
-      "scan_id": "db80cb63-efd1-473b-945b-618f45ef640c",
-      "findings":
-  {
-    {
-      "webinspect_id":
-      {
-        "id": "06103bc8-612f-4cda-8182-578ebf87cd17"
-      },
-      "cwe":
-      [
-        "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
-        "CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS)",
-        "CWE-116: Improper Encoding or Escaping of Output",
-        "CWE-352: Cross-Site Request Forgery (CSRF)",
-        "CWE-811: OWASP Top Ten 2010 Category A2 - Cross-Site Scripting (XSS)",
-        "Input Validation and Representation",
-        "Cross-Site Scripting: Reflected"
-      ],
-      "severity": "2",
-      "vulnerability_name": "Cross-Site Scripting: Reflected",
-      "payload_url": "http://zero.webappsecurity.com:80/forgotten-password-send.html"
-    }
-  }
-}
-```
