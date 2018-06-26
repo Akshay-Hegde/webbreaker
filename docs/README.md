@@ -17,7 +17,7 @@
 [Configuration](#configuration)
 - [WebBreaker `webbreaker_config`](#webbreaker-config)
 
-[Usage ](#usage)
+[Usage](#usage)
 - [Commands `commands`](#commands)
 - [WebInspect Scan `webinspect_scan`](#webinspect-scan)
 - [WebInspect List `webinspect_list`](#webinspect-list)
@@ -449,9 +449,9 @@ Below are common command-line usage of webbreaker, command structure includes th
     webbreaker admin credentials --fortify --clear
 
 ## Results
-Scan results are provided in three (3) file formats and a scan summary printed to your screen.
+Scan results are provided in three (3) file formats and a scan summary printed to your screen.  The following sections illustrate both the scan result summary printed to your screen and the WebBreaker json file. 
 
-##### Scan Results to Console `summary-of-scan-results`
+##### Summary of Scan Results `summary-of-scan-results`
 Upon scan completion the WebBreaker WebInspect scan file is read and a summary of the results are printed to the terminal.  Below is an example of the output from the vulnerability's `Payload URL`, `Severity`, `Vulnerability`, and `CWE`.
 
 
