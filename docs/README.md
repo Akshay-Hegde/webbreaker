@@ -48,15 +48,15 @@ Build non-functional security testing, into your software development and releas
 * _Docker container build support_
 * _Jenkins global environmental variable inheritance with scan options._
 * _WebInspect REST API support for v9.30 and above._
-* _XML and FPR WebInspect formats to Fortify Software Security Center (SSC), ThreadFix or other compatible vulnerability management web applications for vulnerability analysis/triage._
-* _Ability to automatically upload scan results to Fortify SSC, ThreadFix or other third-party vulnerability management software._
+* _XML and FPR scan formats for Fortify Software Security Center (SSC) and ThreadFix compatibility._
+* _Ability to automatically upload or export scan results to Fortify SSC, ThreadFix or other third-party vulnerability management software._
 * _
-* _Centrally administer all configurations required to launch WebInspect scans from a [GIT](https://github.com/webbreaker/webinspect) repository structure._
-* _Configurable ~/.webbreaker/config.ini property file to support for Fortify SSC, WebInspect, and ThreadFix._
+* _Centrally administer all WebInspect scan configurations from a centrally managed from your GIT repository, see our supported [GIT](https://github.com/webbreaker/webinspect) structure._
+* _Configurable ~/.webbreaker/config.ini property file to support Fortify SSC, WebInspect, ThreadFix, and email._
 * _Enterprise scalability with load-balancing between two (2) or greater WebInspect servers._
 * _ChatOps extensibility and [email notifications](.webbreaker/config.ini) on scan start and completion._
 * _Local [logging](~/.webbreaker/log) of WebInspect scan state._
-* _Extensible or portable scan results provided in a JSON format, may be forwarded or ingested by other third-party products, such as Splunk, Grafana, etc._
+* _Scan result summary and JSON scan file provided upon scan completion._
 * _Fortify SSC, WebInspect, and ThreadFix authentication management._
 
 ### Installation: `installation`
