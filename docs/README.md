@@ -470,18 +470,18 @@ The two (2) WebInspect proprietary formats are `.fpr` and `.xml` file types.  We
 
 ``` js
 {
-      "scan_start_time": "2018-06-21 21:21:53",  
-      "scan_end_time": "2018-06-21 21:24:01", 
-      "scan_name": "webinspect-3CY6F",
-      "scan_id": "db80cb63-efd1-473b-945b-618f45ef640c",  
-      "findings": 
+      "scan_start_time": "2018-06-21 21:21:53",
+      "scan_end_time": "2018-06-21 21:24:01",
+      "scan_name": "zero_bank",
+      "scan_id": "db80cb63-efd1-473b-945b-618f45ef640c",
+      "findings":
   {
     {
-      "webinspect_id": 
+      "webinspect_id":
       {
-        "id": "06103bc8-612f-4cda-8182-578ebf87cd17" 
+        "id": "06103bc8-612f-4cda-8182-578ebf87cd17"
       },
-      "cwe": 
+      "cwe":
       [
         "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
         "CWE-80: Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS)",
@@ -489,9 +489,9 @@ The two (2) WebInspect proprietary formats are `.fpr` and `.xml` file types.  We
         "CWE-352: Cross-Site Request Forgery (CSRF)",
         "CWE-811: OWASP Top Ten 2010 Category A2 - Cross-Site Scripting (XSS)",
         "Input Validation and Representation",
-        "Cross-Site Scripting: Reflected"  
+        "Cross-Site Scripting: Reflected"
       ],
-      "severity": "2",  
+      "severity": "2",
       "vulnerability_name": "Cross-Site Scripting: Reflected",
       "payload_url": "http://zero.webappsecurity.com:80/forgotten-password-send.html"
     }
