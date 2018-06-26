@@ -31,7 +31,8 @@
 - [ThreadFix Upload `threadfix_upload`](#threadfix-upload)
 - [WebBreaker Administrative `webbreaker_administrative`](#webbreaker-administrative)
 
-[Scan Files](#files)
+[Results](#results)
+- [Summary of Scan Results `summary_of_scan_results`](#summary-of-scan-results)
 - [JSON Scan File `json_scan_file`](#json-scan-file)
 
 ## Introduction `introduction`
@@ -447,9 +448,25 @@ Below are common command-line usage of webbreaker, command structure includes th
     # Clear cuurent stored Fortify credentials:
     webbreaker admin credentials --fortify --clear
 
+## Results
+Scan results are provided in three (3) file formats and a scan summary printed to your screen.
+
+##### Scan Results to Console `summary-of-scan-results`
+Upon scan completion the WebBreaker WebInspect scan file is read and a summary of the results are printed to the terminal.  Below is an example of the output from the vulnerability's `Payload URL`, `Severity`, `Vulnerability`, and `CWE`.
+
+
+```
+Webbreaker WebInpsect scan zero_bank results:
+
+
+Payload URL  Severity   Vulnerability  CWE
+------------ ---------- -------------- -----
+< insert results here />
+```
+
 ##### JSON Scan File `json_scan_file`
 
-The two proprietary formats are `.fpr` and `.xml` file types.  WebBreaker parses the `.xml` file into a limited `.json` format.  Below is an example of the `.json` structured WebInspect file `webinspect-3CY6F.json`, illustrating a single vulnerability.
+The two (2) WebInspect proprietary formats are `.fpr` and `.xml` file types.  WebBreaker parses or reads the `.xml` file creating a third and limited scan content into a `.json` format.  Below is an example of the `.json` structured WebInspect file `zero_bank.json`, illustrating a single vulnerability.
 
 ``` js
 {
