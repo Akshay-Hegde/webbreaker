@@ -150,10 +150,13 @@ Upon scan completion the WebBreaker WebInspect scan file is read and a summary o
 ```
 Webbreaker WebInpsect scan zero_bank results:
 
+Payload URL				Severity   Vulnerability						CWE                                                                                                 
+----------------------------------	--------- ----------------------------------------------------------	---------
 
-Payload URL  Severity   Vulnerability  CWE
------------- ---------- -------------- -----
-< insert results here />
+http://zero.webappsecurity.com:80/	0	Compliance Failure: Missing Privacy Policy Security Features	CWE-254: Security Features                                                                          
+http://zero.webappsecurity.com:80/      0	Compliance Failure: Missing Privacy Policy Security Features	CWE-254: Security Features                                                                          
+Scan start time: 2018-06-27 02:20:38
+Scan end time: 2018-06-27 02:22:51
 ```
 
 ##### JSON Scan File `json_scan_file`
