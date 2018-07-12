@@ -5,11 +5,9 @@
 
 ## Introduction
 
-WebBreaker is an open source Dynamic Application Security Test Orchestration (DASTO) client, enabling development teams to create pipelines for security testing and automation of functional security tests, with WebInspect, Fortify SSC, and ThreadFix.
+As featured on [Fortify WebInspect's Automation](https://software.microfocus.com/en-us/products/webinspect-dynamic-analysis-dast/features) product site, WebBreaker is an open source Dynamic Application Security Test Orchestration (DASTO) client.  WebBreaker enables teams to perform enterprise scanning from the command-line, create pipelines for security testing and automate functional security tests, with WebInspect, Fortify SSC, and ThreadFix.
 
-The commands are organized by product followed by actions you want to take on the product accompanied with options.  For example to launch a WebInspect scan upon configuring the `~/.webbreaker/config.ini` you can simply type this in your terminal, `webbreaker webinspect scan --settings=zerobank`
-
-_Featured on [Fortify WebInspect's Automation](https://software.microfocus.com/en-us/products/webinspect-dynamic-analysis-dast/features) product site_
+The commands are organized by product followed by actions you want to take on the product accompanied with options.  For example to launch a WebInspect scan upon configuring the `~/.webbreaker/config.ini` (see below) you can simply run, `webbreaker webinspect scan --settings=zerobank`
 
 ## Download & Install
  [ ![Download](https://api.bintray.com/packages/webbreaker/webbreaker-cli/webbreaker/images/download.svg) ](https://bintray.com/webbreaker/webbreaker-cli/webbreaker/_latestVersion)
@@ -33,6 +31,8 @@ _Featured on [Fortify WebInspect's Automation](https://software.microfocus.com/e
 1. ```cd webbreaker;pip install -r requirements.txt```
 1. ```python setup.py build```
 1. ```python setup.py install```
+1. ```python setup.py pyinstaller``` (optional to build mac & linux static binary)
+1. ```./build.ps1``` (optional to build windows .exe)
 
 
 ## Configuration
