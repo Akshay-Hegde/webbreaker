@@ -100,7 +100,11 @@ class WebInspectScan:
         except (requests.exceptions.ConnectionError, requests.exceptions.HTTPError) as e:
             webinspectloghelper.log_error_scan_start_failed(e)
             sys.exit(ExitStatus.failure)
+            
+        except TypeError as e:
+            Logger.app.error("Please verify that your WebInspect API or database is configured: {} !!".format(e))
 
+        #TODO: Add webinspect log endpoint
         Logger.app.debug("WebInspect Scan Complete.")
 
         # If we've made it this far, our new credentials are valid and should be saved
