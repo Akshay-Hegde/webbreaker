@@ -61,14 +61,12 @@ class WebInspectJitScheduler(object):
         """
 
         # Logger.app.debug("Searching for an available endpoint")
-
-        endpoint = self._get_available_endpoint()
-
-        if endpoint:
+        try:
+            endpoint = self._get_available_endpoint()
             Logger.app.info("WebBreaker has selected: {} as your WebInspect Server.".format(endpoint[0]))
             return endpoint[0]
-        else:
-            Logger.app.error("The JIT Scheduler found no available servers for this request.")
+        except (NoServersAvailableError, UnboundLocalError) as e:
+            Logger.app.error("The JIT Scheduler found no available servers for this request: {}".format(e))
             sys.exit(ExitStatus.failure)
 
     def _get_available_endpoint(self):
@@ -191,4 +189,6 @@ class WebInspectJitScheduler(object):
 class NoServersAvailableError(Exception):
     def __init__(self):
         super(NoServersAvailableError, self).__init__("The JIT Scheduler found no available servers for this request.")
+        #super(NoServersAvailableError, self).__init__("WebBreaker found no available WebInspect Servers for scanning, "
+        #                                              "verify your config.ini!")
 
